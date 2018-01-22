@@ -3,16 +3,13 @@
 namespace App\Controller;
 
 use Banana\Controller\BaseController;
-use template\template;
-use Article;
+use Template\template\Tpl;
+use Models\Article\Article;
+
 class PagesController extends BaseController
 {
     public function index()
     {
-        
-		 
-		// $object = new stdClass();
-		// $object->attr = 'Je suis un attribut';
 		 
 		$article = new Article();
 		 
@@ -25,9 +22,8 @@ class PagesController extends BaseController
 			]
 		];
 		 
-		$tpl = new Tpl('index.tpl');
+		$tpl = new Tpl('src/views/index.html');
 		$tpl->set('sitename', 'Mon super site');
-		$tpl->set('obj', $object);
 		$tpl->set('tableau', $arr);
 		$tpl->set('ARTICLE', $article);
 		echo $tpl->output();

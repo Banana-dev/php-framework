@@ -1,5 +1,5 @@
 <?php
-namespace Article;
+namespace Models\Article;
 class Article
 {
     public function getTitle()

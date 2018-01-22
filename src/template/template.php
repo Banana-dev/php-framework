@@ -1,5 +1,5 @@
 <?php
-namespace template;
+namespace Template\template;
 class Tpl
 {
     /** @var string Chemin du template */
