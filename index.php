@@ -21,7 +21,7 @@ if (file_exists($controllerFile)) {
     require_once $controllerFile;
 
     // Nom de la classe dans le fichier
-    $className = 'App\Controller\\'.ucfirst($controller . 'Controller');
+    $className = 'App\Controller\\' . ucfirst($controller . 'Controller');
     // Chargement de la classe
     $page = new $className;
 
@@ -38,16 +38,3 @@ if (file_exists($controllerFile)) {
     // Erreur
     throw new Exception('Le controlleur n\'existe pas');
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//
