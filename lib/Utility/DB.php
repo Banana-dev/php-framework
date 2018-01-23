@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lucpi
- * Date: 22/01/2018
- * Time: 12:01
- */
-
 namespace Banana\Utility;
 
 use PDO;

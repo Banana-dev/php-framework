@@ -17,7 +17,7 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 }
 
 // Chemin vers le fichier du controleur
-$controllerFile = 'src/controller/' . ucfirst($controller) . 'Controller.php';
+$controllerFile = 'src/Controller/' . ucfirst($controller) . 'Controller.php';
 
 // Test si le fichier existe
 if (file_exists($controllerFile)) {
