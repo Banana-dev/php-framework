@@ -13,5 +13,18 @@
 		?>
 	</head>
 	<body>
-		
-	<h1>{{header}}</h1>
+	<header>
+		<h1>{{header}}</h1>
+	</header>
+	
+	<div id="contenu">
+		{{vue}}
+	</div>
+
+
+	<footer>
+		{{footer}}
+	</footer>
+
+	</body>
+</html>

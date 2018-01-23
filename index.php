@@ -27,26 +27,19 @@ if (file_exists($controllerFile)) {
     $className = 'App\Controller\\' . ucfirst($controller . 'Controller');
     // Chargement de la classe
     $page = new $className;
-
-    //inclure le header
-    $header = new Template('header.php');
-    $header->set('header', "ca c'est le header");
-    
-    echo $header->output();
-
     // Test de la présence de l'action
     if (method_exists($page, $action)) {
         // Execution de l'action
-        $page->$action();
+        $layout = new Template('layout.php');
+        $layout->set('header', 'header');
+        $layout->set('footer', 'footer');
+        $layout->set('vue', $page->$action());
+        echo $layout->output();
+        //$page->$action();
     } else {
         // Erreur
         throw new Exception('L\'action n\'existe pas');
     }
-    //inclure le footer
-    $footer = new Template('footer.php');
-    $footer->set('footer', "ca c'est le footer");
-    echo $footer->output();
-
 } else {
     // Erreur
     throw new Exception('Le controlleur n\'existe pas');
