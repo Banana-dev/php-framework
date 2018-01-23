@@ -9,8 +9,9 @@
 namespace Banana\Table;
 
 use Banana\DB\DB;
-
 new DB;
+
+use Banana\Entity\BaseEntity;
 
 class BaseTable
 {
@@ -18,7 +19,9 @@ class BaseTable
     protected $tableName = '';
 
     // Données de la table
-    public $data = array();
+    public $data = [];
+    public $entities = [];
+
 
     function __construct()
     {
@@ -48,6 +51,7 @@ class BaseTable
                     $sth = DB::$C->prepare("SELECT * FROM $this->tableName WHERE {$arr[2]} = '{$arguments[0]}'");
                     $sth->execute();
                     $this->data = $sth->fetchAll();
+
                 }
                 break;
 
@@ -66,6 +70,14 @@ class BaseTable
 
             default:
                 break;
+        }
+
+        // Instances des entités
+        foreach ($this->data as $row) {
+            $entities[] = new BaseEntity($this->tableName, $row);
+            echo '<pre>';
+            var_dump($entities);
+            echo '</pre>';
         }
     }
 }

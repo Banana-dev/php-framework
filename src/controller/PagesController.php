@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Table\CountriesTable;
 use App\Table\UsersTable;
 
 use Banana\Controller\BaseController;

@@ -6,14 +6,15 @@ use App\Table\CountriesTable;
 use App\Table\UsersTable;
 
 use Banana\Controller\BaseController;
+use Banana\Entity\BaseEntity;
 
-class PagesController extends BaseController
+class DbTestController extends BaseController
 {
     public function getUsersByEmail()
     {
         $Users = new UsersTable();
         $Users->getByEmail("test@mail.com");
-        var_dump($Users->data);
+
     }
 
     public function getUsersByEmailOrderBy()
@@ -28,5 +29,12 @@ class PagesController extends BaseController
         $Countries = new CountriesTable();
         $Countries->getByName('France');
         var_dump($Countries->data);
+    }
+
+    public function getFieldNames () {
+        $collectionsEntity = new BaseEntity('collections');
+        echo '<pre>';
+        var_dump($collectionsEntity->get());
+        echo '</pre>';
     }
 }
