@@ -6,12 +6,8 @@ public class Session
 	private static function instance()
     {
         if (!self::$instanciated) {
-            $file = __DIR__ . '/../../Session.php';
-            if (!file_exists($file)) {
-                throw new \Exception('Fichier Session.php manquant.');
-            } else {
-                self::$_SESSION[USER] = require $file;
-            }
+			session_start();
+			$instanciated = true;
         }
     }
 	
