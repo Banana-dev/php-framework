@@ -1,10 +1,16 @@
 <?php
 
-namespace Banana\htmlHelper;
+namespace Banana\Helper;
 
 class htmlHelper {
-	public static funtion loadCss($file)
+
+	public static function loadCss($file)
 	{
-		return '<link rel="stylesheet" href="'__DIR__'././'.$file.'">';
+		return '<link rel="stylesheet" href="'.$file.'">';
+	}
+
+	public static function loadJs($file)
+	{
+		return '<script src="'.$file.'"></script>';
 	}
 }
