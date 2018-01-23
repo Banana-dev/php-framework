@@ -2,7 +2,6 @@
 
 namespace Banana\Model;
 
-use Banana\Entity\BaseEntity;
 use Banana\Utility\DB;
 
 /**
@@ -20,10 +19,12 @@ class BaseTable
      */
     protected $tableName = '';
 
+    protected $entityName = 'UserEntity';
+
     /**
      * @var array Données récupérées
      */
-    public $data = [];
+//    public $data = [];
     public $entities = [];
 
     /**
@@ -34,6 +35,7 @@ class BaseTable
      */
     public function __call(string $name, array $arguments)
     {
+        $data = [];
         // Split du name à toute les majuscules
         $arr = preg_split('/(?=[A-Z])/', $name, -1, PREG_SPLIT_NO_EMPTY);
 
@@ -46,7 +48,7 @@ class BaseTable
                 if ($arr[0] === 'get' && $arr[1] === 'All') {
                     $sth = DB::$C->prepare("SELECT * FROM $this->tableName");
                     $sth->execute();
-                    $this->data = $sth->fetchAll();
+                    $data = $sth->fetchAll();
                 }
                 break;
 
@@ -55,7 +57,7 @@ class BaseTable
                 if ($arr[0] === 'get' && $arr[1] === 'By') {
                     $sth = DB::$C->prepare("SELECT * FROM $this->tableName WHERE {$arr[2]} = '{$arguments[0]}'");
                     $sth->execute();
-                    $this->data = $sth->fetchAll();
+                    $data = $sth->fetchAll();
 
                 }
                 break;
@@ -69,20 +71,24 @@ class BaseTable
                                     WHERE {$arr[2]} = '{$arguments[0]}'
                                     ORDER BY {$arguments[1]} {$arguments[2]}");
                     $sth->execute();
-                    $this->data = $sth->fetchAll();
+                    $data = $sth->fetchAll();
                 }
                 break;
 
             default:
                 break;
         }
+        $this->collectEntities($data);
+    }
 
-        // Instances des entités
-        foreach ($this->data as $row) {
-            $entities[] = new BaseEntity($this->tableName, $row);
-            echo '<pre>';
-            var_dump($entities);
-            echo '</pre>';
+    protected function collectEntities($data)
+    {
+        foreach ($data as $row) {
+            $entityClass = 'App\Model\Entity\\' . $this->entityName;
+            $this->entities[] = new $entityClass($row);
+//            echo '<pre>';
+//            var_dump($entities);
+//            echo '</pre>';
         }
     }
 }

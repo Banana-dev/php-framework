@@ -8,30 +8,32 @@
 
 namespace Banana\Entity;
 
-use Banana\DB\DB;
-new DB;
-
 class BaseEntity
 {
     // Nom des champs
-    protected $fieldNames = [];
+    protected $fieldNames = [
+        'id' => ['type' => 'int'],
+        'email' => ['type' => 'email']
+    ];
     protected $values = [];
     protected $status;
 
     // Méthodes particulières
-    public function __construct($tablename, $row)
+    public function __construct($values = [])
     {
+
+//        var_dump($values);
         // Récupération des champs
-        $sth = DB::$C->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{$tablename}'");
-        $sth->execute();
-        $this->fieldNames = $sth->fetchAll(\PDO::FETCH_COLUMN);
+//        $sth = DB::$C->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{$tablename}'");
+//        $sth->execute();
+//        $this->fieldNames = $sth->fetchAll(\PDO::FETCH_COLUMN);
 
         // Association des valeurs aux champs
         foreach ($this->fieldNames as $field) {
-            if (!array_key_exists($field, $row)) {
+            if (!array_key_exists($field, $values)) {
                 $this->values[$field] = '';
             } else {
-                $this->values[$field] = $row[$field];
+                $this->values[$field] = $values[$field];
             }
         }
     }
