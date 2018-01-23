@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use Banana\Controller\BaseController;
-use Template\template\Tpl;
-use Models\Article\Article;
+use Banana\Template\Template;
+use App\Models\Article\Article;
 
 class PagesController extends BaseController
 {
@@ -22,7 +22,7 @@ class PagesController extends BaseController
 			]
 		];
 		 
-		$tpl = new Tpl('src/views/index.html');
+		$tpl = new Template('src/views/index.html');
 		$tpl->set('sitename', 'Mon super site');
 		$tpl->set('tableau', $arr);
 		$tpl->set('ARTICLE', $article);

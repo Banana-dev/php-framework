@@ -1,6 +1,6 @@
 <?php
-namespace Template\template;
-class Tpl
+namespace Banana\Template;
+class Template
 {
     /** @var string Chemin du template */
     protected $filepath;

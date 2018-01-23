@@ -6,9 +6,7 @@
   "autoload": {
     "psr-4": {
       "App\\": "src/",
-      "Banana\\": "lib/",
-      "Models\\": "src/models",
-      "Template\\": "src/template"
+      "Banana\\": "lib/"
     }
   }
 }
