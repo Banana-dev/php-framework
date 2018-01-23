@@ -1,4 +1,8 @@
+<?php use Banana\htmlHelper\htmlHelper;
 
+echo htmlHelper::loadCss("vendor/twbs/bootstrap/dist/css/bootstrap.min.css");
+
+  ?>
 <h1>{{sitename}}</h1>
  
 <h2>{{ARTICLE.getTitle}}</h2>
