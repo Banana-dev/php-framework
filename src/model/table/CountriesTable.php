@@ -6,9 +6,9 @@
  * Time: 16:56
  */
 
-namespace App\Table;
+namespace App\Model\Table;
 
-use Banana\Table\BaseTable;
+use Banana\Model\BaseTable;
 
 class CountriesTable extends BaseTable
 {

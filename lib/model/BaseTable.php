@@ -1,31 +1,37 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lucpi
- * Date: 22/01/2018
- * Time: 11:32
- */
 
-namespace Banana\Table;
+namespace Banana\Model;
 
 use Banana\Utility\DB;
 
-new DB;
-
+/**
+ * Class BaseTable
+ * Classe représentant une table, avec des méthodes génériques
+ * pour accéder aux données de cette table.
+ *
+ * @author lucpi
+ * @package Banana\Model
+ */
 class BaseTable
 {
-    // Nom de la table
+    /**
+     * @var string Nom de la table
+     */
     protected $tableName = '';
 
-    // Données de la table
-    public $data = array();
+    /**
+     * @var array Données récupérées
+     */
+    public $data = [];
 
-    function __construct()
+    /**
+     * Méthode magique pour certains getters
+     *
+     * @param string $name Nom du getter
+     * @param array $arguments Arguments passés
+     */
+    public function __call(string $name, array $arguments)
     {
-
-    }
-
-    public function __call($name, $arguments) {
         // Split du name à toute les majuscules
         $arr = preg_split('/(?=[A-Z])/', $name, -1, PREG_SPLIT_NO_EMPTY);
 
