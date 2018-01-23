@@ -1,9 +1,12 @@
 <?php
 require_once 'vendor/autoload.php';
 
+\Banana\Utility\DB::initialize();
+
 // Déterminer le controleur et l'action
 $controller = 'pages';
 $action = 'index';
+
 
 if (isset($_GET['controller']) && !empty($_GET['controller'])) {
     $controller = $_GET['controller'];
@@ -21,7 +24,7 @@ if (file_exists($controllerFile)) {
     require_once $controllerFile;
 
     // Nom de la classe dans le fichier
-    $className = 'App\Controller\\'.ucfirst($controller . 'Controller');
+    $className = 'App\Controller\\' . ucfirst($controller . 'Controller');
     // Chargement de la classe
     $page = new $className;
 
@@ -33,7 +36,6 @@ if (file_exists($controllerFile)) {
         // Erreur
         throw new Exception('L\'action n\'existe pas');
     }
-
 } else {
     // Erreur
     throw new Exception('Le controlleur n\'existe pas');
