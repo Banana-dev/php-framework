@@ -15,15 +15,15 @@ public class Session
     {
         self::instance();
         if($path === null){
-            return self::$_SESSION[USER];
+            return self::$_SESSION[];
         }
-        return Hash::get(self::$_SESSION[USER], $path);
+        return Hash::get(self::$_SESSION[], $path);
     }
 
     public static function set($path, $value)
     {
         self::instance();
-        self::$_SESSION[USER] = Hash::set(self::$_SESSION[USER], $path, $value);
+        self::$_SESSION[] = Hash::set(self::$_SESSION[], $path, $value);
     }
 }
 ?>
