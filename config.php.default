@@ -1,0 +1,15 @@
+<?php
+
+return [
+    // Configuration du site
+    'site' => [
+        'name' => 'Mon site web'
+    ],
+    // Accès à la base de données
+    'db' => [
+        'host' => 'localhost',
+        'username' => '',
+        'password' => '',
+        'db' => ''
+    ],
+];
