@@ -19,14 +19,28 @@ class Template
      * @throws Exception Si le fichier n'existe pas
      */
     public function __construct($filename)
+
+
     {
+
         if (!is_file($filename))
         {
             throw new Exception($filename . ' is not a valid file');
         }
+        $this->loadCss();
+        $this->loadJs();
         $this->filepath = $filename;
     }
     
+    public function loadCss(){
+        echo "<link rel='stylesheet' href='vendor/twbs/bootstrap/dist/css/bootstrap.min.css'>";
+    }
+
+    public function loadJs(){
+        
+        echo "<script src='vendor/components/jquery/jquery.min.js'></script>";
+        echo "<script src='vendor/twbs/bootstap/dist/js/bootstrap.min.js'></script>";
+    }
     /**
      * Assigne des données au template
      * Les données peuvent être des string, array, objets..
@@ -48,7 +62,6 @@ class Template
     {
         // Enclenche la temporisation de sortie
         ob_start();
-        
         // On récupère le contenu du fichier
         $this->filecontent = $this->get_content($this->filepath);
         

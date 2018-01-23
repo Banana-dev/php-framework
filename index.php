@@ -1,6 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
 
+
 // Déterminer le controleur et l'action
 $controller = 'pages';
 $action = 'index';

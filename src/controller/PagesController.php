@@ -8,10 +8,11 @@ use App\Models\Article\Article;
 
 class PagesController extends BaseController
 {
+
     public function index()
     {
 		 
-		$article = new Article();
+		
 		 
 		$arr = [
 			'pays' => 'france',
@@ -21,11 +22,9 @@ class PagesController extends BaseController
 				'60' => 'Oise'
 			]
 		];
-		 
-		$tpl = new Template('src/views/index.html');
+		$tpl = new Template('src/views/index.php');
 		$tpl->set('sitename', 'Mon super site');
 		$tpl->set('tableau', $arr);
-		$tpl->set('ARTICLE', $article);
 		echo $tpl->output();
     }
 }
