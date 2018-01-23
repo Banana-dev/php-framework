@@ -7,6 +7,7 @@ require_once 'vendor/autoload.php';
 $controller = 'pages';
 $action = 'index';
 
+
 if (isset($_GET['controller']) && !empty($_GET['controller'])) {
     $controller = $_GET['controller'];
 }
@@ -35,7 +36,6 @@ if (file_exists($controllerFile)) {
         // Erreur
         throw new Exception('L\'action n\'existe pas');
     }
-
 } else {
     // Erreur
     throw new Exception('Le controlleur n\'existe pas');

@@ -29,14 +29,43 @@ class BaseTable
         // Split du name à toute les majuscules
         $arr = preg_split('/(?=[A-Z])/', $name, -1, PREG_SPLIT_NO_EMPTY);
 
-        // getByChamps
-        if (count($arr) === 3) {
-            if ($arr[0] === 'get' && $arr[1] === 'By') {
-                var_dump(DB::$C);
-                $sth = DB::$C->prepare("SELECT * FROM $this->tableName ORDER BY {$arr[2]}");
-                $sth->execute();
-                $data = $sth->fetchAll();
-            }
+        switch (count($arr)) {
+            case 1:
+                break;
+
+            // getAll
+            case 2:
+                if ($arr[0] === 'get' && $arr[1] === 'All') {
+                    $sth = DB::$C->prepare("SELECT * FROM $this->tableName");
+                    $sth->execute();
+                    $this->data = $sth->fetchAll();
+                }
+                break;
+
+            // getByField
+            case 3:
+                if ($arr[0] === 'get' && $arr[1] === 'By') {
+                    $sth = DB::$C->prepare("SELECT * FROM $this->tableName WHERE {$arr[2]} = '{$arguments[0]}'");
+                    $sth->execute();
+                    $this->data = $sth->fetchAll();
+                }
+                break;
+
+            // getByFieldOrderBy
+            case 5:
+                if ($arr[0] === 'get' && $arr[1] === 'By' && $arr[3] === 'Order' && $arr[4] === 'By') {
+                    $sth = DB::$C->prepare("
+                                    SELECT * 
+                                    FROM $this->tableName 
+                                    WHERE {$arr[2]} = '{$arguments[0]}'
+                                    ORDER BY {$arguments[1]} {$arguments[2]}");
+                    $sth->execute();
+                    $this->data = $sth->fetchAll();
+                }
+                break;
+
+            default:
+                break;
         }
     }
 }

@@ -19,7 +19,6 @@ class UsersTable extends BaseTable
     // Nom de la table
     function __construct()
     {
-        parent::construct();
-        $this->tableName = 'Users';
+        $this->tableName = 'users';
     }
 }

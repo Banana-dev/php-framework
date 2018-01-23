@@ -8,17 +8,21 @@
 
 namespace Banana\DB;
 
+use Banana\Utility\Config;
+
+var_dump(Config::get('db.host'));
+
+
 class DB
 {
     public static $C;
 
     public static function initialize()
     {
-        // \namespace php
-        $config = array("dbname" => "tracks", "user" => "root", "pwd" => "123");
+        $conf = Config::get('db');
+
         try {
-            $C = new \PDO('mysql:host=localhost;dbname=tracks;charset=utf8', 'root', '123');
-            var_dump($C);
+            self::$C = new \PDO( "mysql:host={$conf['host']};dbname={$conf['db']};charset=utf8", "{$conf['username']}", "{$conf['username']}");
         } catch (\PDOException $e) {
             die('Erreur: ' . $e->getMessage());
         }
