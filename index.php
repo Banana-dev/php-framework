@@ -2,7 +2,7 @@
 require_once 'vendor/autoload.php';
 
 \Banana\Utility\DB::initialize();
-
+use Banana\Template\Template;
 // Déterminer le controleur et l'action
 $controller = 'pages';
 $action = 'index';
@@ -28,6 +28,12 @@ if (file_exists($controllerFile)) {
     // Chargement de la classe
     $page = new $className;
 
+    //inclure le header
+    $header = new Template('header.php');
+    $header->set('header', "ca c'est le header");
+    
+    echo $header->output();
+
     // Test de la présence de l'action
     if (method_exists($page, $action)) {
         // Execution de l'action
@@ -36,7 +42,14 @@ if (file_exists($controllerFile)) {
         // Erreur
         throw new Exception('L\'action n\'existe pas');
     }
+    //inclure le footer
+    $footer = new Template('footer.php');
+    $footer->set('footer', "ca c'est le footer");
+    echo $footer->output();
+
 } else {
     // Erreur
     throw new Exception('Le controlleur n\'existe pas');
 }
+
+

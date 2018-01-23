@@ -2,6 +2,7 @@
 
 namespace Banana\Template;
 
+
 class Template
 {
     /** @var string Chemin du template */
@@ -25,21 +26,7 @@ class Template
         if (!is_file($filename)) {
             throw new Exception($filename . ' is not a valid file');
         }
-        $this->loadCss();
-        $this->loadJs();
         $this->filepath = $filename;
-    }
-
-    public function loadCss()
-    {
-        echo "<link rel='stylesheet' href='vendor/twbs/bootstrap/dist/css/bootstrap.min.css'>";
-    }
-
-    public function loadJs()
-    {
-
-        echo "<script src='vendor/components/jquery/jquery.min.js'></script>";
-        echo "<script src='vendor/twbs/bootstap/dist/js/bootstrap.min.js'></script>";
     }
 
     /**
