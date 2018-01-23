@@ -38,16 +38,3 @@ if (file_exists($controllerFile)) {
     // Erreur
     throw new Exception('Le controlleur n\'existe pas');
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//
