@@ -2,7 +2,10 @@
   "name": "vagrant/html",
   "type": "project",
   "license": "MIT",
-  "require": {},
+  "require": {
+    "twbs/bootstrap": "^4.0",
+    "components/jquery": "^3.2"
+  },
   "autoload": {
     "psr-4": {
       "App\\": "src/",

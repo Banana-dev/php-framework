@@ -1,18 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lucpi
- * Date: 22/01/2018
- * Time: 11:49
- */
 
-namespace App\Table;
+namespace App\Model\Table;
 
 // je travail dans ce dossier
-use Banana\Table\BaseTable;
-
-// Importe cette classe
-new BaseTable();
+use Banana\Model\BaseTable;
 
 class UsersTable extends BaseTable
 {

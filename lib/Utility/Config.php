@@ -4,11 +4,18 @@ namespace Banana\Utility;
 
 /**
  * Class Config
+ * Accès aux variables de configuration
  * @package Banana\Utility
  */
 final class Config
 {
+    /**
+     * @var bool Définit si le singleton a été instancié
+     */
     protected static $instanciated = false;
+    /**
+     * @var array Valeurs de configuration
+     */
     protected static $config = [];
 
     /**
@@ -29,14 +36,14 @@ final class Config
 
     /**
      * Renvoie une valeur de config
-     * @param $path Chemin vers la valeur. Le séparateur de clé est un point '.'
+     * @param string $path Chemin vers la valeur. Le séparateur de clé est un point '.'
      * @return mixed|null
      * @throws \Exception
      */
     public static function get($path = null)
     {
         self::instance();
-        if($path === null){
+        if ($path === null) {
             return self::$config;
         }
         return Hash::get(self::$config, $path);
@@ -44,8 +51,8 @@ final class Config
 
     /**
      * Renvoie une valeur de config
-     * @param $path Chemin vers la valeur. Le séparateur de clé est un point '.'
-     * @param $value Nouvelle valeur
+     * @param string $path Chemin vers la valeur. Le séparateur de clé est un point '.'
+     * @param mixed|null $value Nouvelle valeur
      * @throws \Exception
      */
     public static function set($path, $value)
@@ -59,6 +66,5 @@ final class Config
      */
     private function __construct()
     {
-
     }
 }

@@ -5,6 +5,8 @@ return [
     'site' => [
         'name' => 'Mon site web'
     ],
+    // Afficher les infos de debug ?
+    'debug' => true,
     // Accès à la base de données
     'db' => [
         'host' => 'localhost',

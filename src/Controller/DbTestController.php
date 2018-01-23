@@ -2,36 +2,34 @@
 
 namespace App\Controller;
 
-use App\Table\CountriesTable;
-use App\Table\UsersTable;
-
+use App\Model\Table\CountriesTable;
+use App\Model\Table\UsersTable;
 use Banana\Controller\BaseController;
 use Banana\Entity\BaseEntity;
 
+/**
+ * Class DbTestController
+ * Controleur pour les test de base de données
+ * @package App\Controller
+ */
 class DbTestController extends BaseController
 {
-    public function getUsersByEmail()
+    /**
+     * Page d'index
+     */
+    public function index()
     {
         $Users = new UsersTable();
         $Users->getByEmail("test@mail.com");
+        var_dump($Users->data);
 
-    }
-
-    public function getUsersByEmailOrderBy()
-    {
-        $Users = new UsersTable();
         $Users->getByEmailOrderBy('test@mail.com', 'email', 'ASC');
         var_dump($Users->data);
-    }
 
-    public function getCountriesByName()
-    {
         $Countries = new CountriesTable();
         $Countries->getByName('France');
         var_dump($Countries->data);
-    }
 
-    public function getFieldNames () {
         $collectionsEntity = new BaseEntity('collections');
         echo '<pre>';
         var_dump($collectionsEntity->get());
