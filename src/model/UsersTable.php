@@ -11,9 +11,6 @@ namespace App\Table;
 // je travail dans ce dossier
 use Banana\Table\BaseTable;
 
-// Importe cette classe
-new BaseTable();
-
 class UsersTable extends BaseTable
 {
     // Nom de la table

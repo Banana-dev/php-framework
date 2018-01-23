@@ -1,7 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
 
-\Banana\DB\DB::initialize();
+\Banana\Utility\DB::initialize();
 
 // Déterminer le controleur et l'action
 $controller = 'pages';

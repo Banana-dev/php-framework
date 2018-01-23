@@ -7,7 +7,7 @@ use App\Table\UsersTable;
 
 use Banana\Controller\BaseController;
 
-class PagesController extends BaseController
+class DbTestController extends BaseController
 {
     public function getUsersByEmail()
     {
