@@ -8,7 +8,7 @@
 
 namespace Banana\Table;
 
-use Banana\DB\DB;
+use Banana\Utility\DB;
 
 new DB;
 
