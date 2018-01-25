@@ -8,32 +8,43 @@
 
 namespace Banana\Entity;
 
+use Banana\Utility\DB;
+use Banana\Utility\Hash;
+
 class BaseEntity
 {
-    // Nom des champs
-    protected $fieldNames = [
-        'id' => ['type' => 'int'],
-        'email' => ['type' => 'email']
-    ];
+    /**
+     * @var string Nom de la table
+     */
+    protected $tableName = '';
+
+    /**
+     * @var array Tableau contenant le nom des champs
+     */
+    protected $fieldNames = [];
+
+    /**
+     * @var array Valeurs courantes
+     */
     protected $values = [];
-    protected $status;
+
+    /**
+     * @var bool Vérifie si l'entité a été modifiée ou non
+     */
+    protected $modified;
 
     // Méthodes particulières
-    public function __construct($values = [])
+    public function __construct($tableName, $values = [])
     {
-
-//        var_dump($values);
-        // Récupération des champs
-//        $sth = DB::$C->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{$tablename}'");
-//        $sth->execute();
-//        $this->fieldNames = $sth->fetchAll(\PDO::FETCH_COLUMN);
+        $this->tableName = $tableName;
 
         // Association des valeurs aux champs
-        foreach ($this->fieldNames as $field) {
-            if (!array_key_exists($field, $values)) {
-                $this->values[$field] = '';
+        foreach ($this->fieldNames as $name => $type) {
+            if (!array_key_exists($name, $values)) {
+                $this->values[$name] = null;
             } else {
-                $this->values[$field] = $values[$field];
+                $this->setValue($name, $values[$name]);
+//                $this->values[$field] = $values[$field];
             }
         }
     }
@@ -43,16 +54,45 @@ class BaseEntity
         if (array_key_exists($field, $this->values)) {
             return $this->values[$field];
         } else {
-            // Throw excreption here
+            // Throw exception here
         }
     }
 
     public function __set($field, $value)
     {
         if (array_key_exists($field, $this->values)) {
-            $this->values[$field] = $value;
+            $this->setValue($field, $value);
+            $this->modified = true;
+            $this->update($field);
         } else {
             // Throw exception here
+        }
+    }
+
+    protected function setValue($field, $value)
+    {
+        switch ($this->fieldNames[$field]['type']) {
+            case 'integer':
+                $this->values[$field] = (int) $value;
+                break;
+
+            case 'string':
+                $this->values[$field] = (string) $value;
+                break;
+
+            default:
+                $this->values[$field] = (string) $value;
+        }
+    }
+
+    protected function update(string $fieldToUpdate)
+    {
+        if ($this->modified == true) {
+
+            $fieldToUpdate .= ' = ' . (gettype($this->values[$fieldToUpdate] ) == 'string' ? "'{$this->values[$fieldToUpdate]}'" : "{$this->values[$fieldToUpdate]}");
+
+            $sth = DB::$C->prepare("UPDATE $this->tableName SET $fieldToUpdate WHERE id = {$this->values['id']}");
+            $sth->execute();
         }
     }
 }

@@ -86,8 +86,13 @@ class BaseTable
     protected function collectEntities($data)
     {
         foreach ($data as $row) {
-            $entityClass = 'App\Model\Entity\\' . $this->entityName. 'Entity';
-            $this->entities[] = new $entityClass($row);
+            $entityClass = 'App\Model\Entity\\' . $this->entityName . 'Entity';
+            $this->entities[] = new $entityClass($this->tableName, $row);
         }
+    }
+
+    public function getTableName()
+    {
+        return $this->tableName;
     }
 }

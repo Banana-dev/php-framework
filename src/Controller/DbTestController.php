@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Model\Table\CountriesTable;
-use App\Model\Table\UsersTable;
 use Banana\Controller\BaseController;
 
 /**
@@ -18,14 +17,16 @@ class DbTestController extends BaseController
      */
     public function index()
     {
-        $users = new UsersTable();
-        $users->getAll();
-        echo '<pre>';
-        var_export($users, false);
-        echo '</pre>';
-        echo '<br/>';
         $countries = new CountriesTable();
         $countries->getAll();
+        echo '<pre>';
+        var_export($countries, false);
+        echo '</pre>';
+
+        // Entités
+        echo $countries->entities[0]->id; // __get
+        $countries->entities[0]->name = 'Allemagne'; // __set
+
         echo '<pre>';
         var_export($countries, false);
         echo '</pre>';
