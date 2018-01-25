@@ -33,8 +33,6 @@ class Template
             new ExceptionHandler($exception);
         }
 
-        $this->loadCss();
-        $this->loadJs();
         $this->filepath = $filename;
     }
 
@@ -60,6 +58,7 @@ class Template
         // Enclenche la temporisation de sortie
         ob_start();
 
+        extract($this->data);
         // On récupère le contenu du fichier
         $this->filecontent = $this->get_content($this->filepath);
 
