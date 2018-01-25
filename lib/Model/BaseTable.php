@@ -2,6 +2,7 @@
 
 namespace Banana\Model;
 
+use Banana\Exception\NotFoundException;
 use Banana\Utility\DB;
 
 /**
@@ -81,13 +82,34 @@ class BaseTable
                 break;
         }
         $this->collectEntities($data);
+
+        return $this;
+    }
+
+    public function first()
+    {
+        if (count($this->entities) > 0) {
+            return $this->entities[0];
+        } else {
+            return null;
+        }
+    }
+
+    public function firstOrFail()
+    {
+        if (count($this->entities) > 0) {
+            return $this->entities[0];
+        } else {
+            throw new NotFoundException('Data not found');
+        }
     }
 
     protected function collectEntities($data)
     {
+        $entityClass = 'App\Model\Entity\\' . $this->entityName . 'Entity';
         foreach ($data as $row) {
-            $entityClass = 'App\Model\Entity\\' . $this->entityName. 'Entity';
-            $this->entities[] = new $entityClass($row);
+            $e = new $entityClass($row);
+            $this->entities[] = $e;
         }
     }
 }
