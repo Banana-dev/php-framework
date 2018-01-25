@@ -16,6 +16,6 @@ class PagesController extends BaseController
      */
     public function index()
     {
-        echo 'OK';
+        return 'OK';
     }
 }

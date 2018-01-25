@@ -35,6 +35,6 @@ class TemplateTestController extends BaseController
         $tpl->set('sitename', 'Mon super site');
         $tpl->set('tableau', $arr);
         $tpl->set('ARTICLE', $article);
-        echo $tpl->output();
+        return $tpl->output();
     }
 }
