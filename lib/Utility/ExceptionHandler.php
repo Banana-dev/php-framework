@@ -3,41 +3,53 @@
 namespace Banana\Utility;
 
 use Banana\Template\Template;
-use Throwable;
 
-class ExceptionHandler {
+class ExceptionHandler
+{
 
-	public function __construct($e) {
+    public function __construct($e)
+    {
 
-		$error_class = get_class($e);
+        $error_class = get_class($e);
 
 //		var_dump($error_class);
 
-		switch ($error_class){
-			case "PDOException":
+        switch ($error_class) {
+            case "PDOException":
 
-				$template = new Template("src/views/errors/PDO.php");
-				$template->set('title', $error_class);
-				$template->set('message', $e->getMessage());
-				echo $template->output();
+                $template = new Template("src/Views/errors/PDO.php");
+                $template->set('title', $error_class);
+                $template->set('message', $e->getMessage());
+                echo $template->output();
 
-				break;
+                break;
 
-			case "Banana\Exception\NotFoundException":
+            case "Banana\Exception\NotFoundException":
 
-				$template = new Template("src/views/errors/404.php");
-				$template->set('title', '404 not found');
-				$template->set('message', $e->getMessage());
-				echo $template->output();
+                $template = new Template("src/Views/errors/404.php");
+                $template->set('title', '404 not found');
+                $template->set('message', $e->getMessage());
+                echo $template->output();
 
-				break;
+                break;
 
-			case "Banana\Exception\MissingTemplateException":
+            case "Banana\Exception\MissingTemplateException":
 
-				echo "<div style='width: 100%;height: 100%;display: flex;'><div style='margin: auto;'><h1 style='color: red;font-size: 10em;'>FATAL ERROR</h1></div></div>";
+                $filename = 'src/Views/errors/404.php';
 
-				break;
-		}
-		die();
-	}
+                if (file_exists($filename)) {
+
+                    $template = new Template($filename);
+                    $template->set('title', '404 not found');
+                    $template->set('message', $e->getMessage());
+                    echo $template->output();
+
+                } else {
+                    echo "<div style='width: 100%;height: 100%;display: flex;'><div style='margin: auto;'><h1 style='color: red;font-size: 10em;'>FATAL ERROR</h1></div></div>";
+                }
+
+                break;
+        }
+        die();
+    }
 }

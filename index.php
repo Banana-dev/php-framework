@@ -3,8 +3,6 @@ require_once 'vendor/autoload.php';
 
 \Banana\Utility\DB::initialize();
 
-use Banana\Template\Template;
-
 // Déterminer le controleur et l'action
 $controller = 'pages';
 $action = 'index';
