@@ -11,9 +11,6 @@ class PagesController extends BaseController
 
     public function index()
     {
-		 
-		
-		 
 		$arr = [
 			'pays' => 'france',
 			'langue' => 'français',
