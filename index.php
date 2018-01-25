@@ -30,7 +30,7 @@ if (file_exists($controllerFile)) {
     // Test de la présence de l'action
     if (method_exists($page, $action)) {
         // Execution de l'action
-        $layout = new Template('layout.php');
+        $layout = new Template('src/Views/Layout/default.php');
         $layout->set('header', 'header');
         $layout->set('footer', 'footer');
         $layout->set('vue', $page->$action());

@@ -31,7 +31,7 @@ class TemplateTestController extends BaseController
             ]
         ];
 
-        $tpl = new Template('src/views/index.php');
+        $tpl = new Template('src/Views/TemplatePage/index.php');
         $tpl->set('sitename', 'Mon super site');
         $tpl->set('tableau', $arr);
         $tpl->set('ARTICLE', $article);
