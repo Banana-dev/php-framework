@@ -1,4 +1,5 @@
 <?php
+
 namespace Banana\Utility;
 
 use PDO;

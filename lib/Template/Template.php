@@ -25,13 +25,13 @@ class Template
      */
     public function __construct($filename)
     {
-    	try {
-		    if (!is_file($filename)) {
-			    throw new MissingTemplateException($filename . ' is not a valid file');
-		    }
-	    } catch (\Exception $exception) {
-    		new ExceptionHandler($exception);
-	    }
+        try {
+            if (!is_file($filename)) {
+                throw new MissingTemplateException($filename . ' is not a valid file');
+            }
+        } catch (\Exception $exception) {
+            new ExceptionHandler($exception);
+        }
 
         $this->filepath = $filename;
     }

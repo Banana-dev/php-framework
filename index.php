@@ -2,6 +2,7 @@
 require_once 'vendor/autoload.php';
 
 \Banana\Utility\DB::initialize();
+
 // Déterminer le controleur et l'action
 $controller = 'pages';
 $action = 'index';
