@@ -5,23 +5,22 @@ namespace App\Controller;
 use Banana\Controller\BaseController;
 use Banana\Template\Template;
 
-/**
- * Class PagesController
- *
- * @package App\Controller
- */
 class PagesController extends BaseController
 {
-    /**
-     * Page d'index
-     */
+
     public function index()
     {
-        return 'OK';
-    }
-
-    public function docTemplate(){
-    	$tpl = new Template('src/Views/docTemplate.php');
-    	return $tpl->output();
+        $arr = [
+            'pays' => 'france',
+            'langue' => 'français',
+            'departements' => [
+                '59' => 'Nord',
+                '60' => 'Oise'
+            ]
+        ];
+        $tpl = new Template('src/views/index.php');
+        $tpl->set('sitename', 'Mon super site');
+        $tpl->set('tableau', $arr);
+        echo $tpl->output();
     }
 }
