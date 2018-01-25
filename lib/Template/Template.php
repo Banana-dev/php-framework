@@ -124,6 +124,7 @@ class Template
         ob_start();
 //        var_dump($this->filepath);
 
+        extract($this->data);
         // On récupère le contenu du fichier
         $this->filecontent = $this->get_content($this->filepath);
 
