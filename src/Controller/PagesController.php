@@ -17,7 +17,7 @@ class PagesController extends BaseController
      */
     public function index()
     {
-        return 'OK';
+        $tpl = new Template('src/Views/docTemplaqsdqsdqsdte.php');
     }
 
     public function docTemplate(){

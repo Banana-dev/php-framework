@@ -33,7 +33,7 @@ class DB
                     "{$conf['password']}");
                 self::$instanciated = true;
             } catch (PDOException $e) {
-                die('Erreur: ' . $e->getMessage());
+                new ExceptionHandler($e);
             }
         }
 
