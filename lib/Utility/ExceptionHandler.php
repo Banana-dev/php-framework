@@ -48,7 +48,6 @@ class ExceptionHandler
                     echo "<div style='width: 100%;height: 100%;display: flex;'><div style='margin: auto;'><h1 style='color: red;font-size: 10em;'>FATAL ERROR</h1></div></div>";
                 }
 
-
                 break;
         }
         die();
