@@ -33,7 +33,11 @@ class BaseEntity
      */
     protected $modified;
 
-    // Méthodes particulières
+    /**
+     * BaseEntity constructor.
+     * @param $tableName Nom de la table
+     * @param array $values Valeurs à associer
+     */
     public function __construct($tableName, $values = [])
     {
         $this->tableName = $tableName;
@@ -49,6 +53,10 @@ class BaseEntity
         }
     }
 
+    /**
+     * @param $field Champ
+     * @return mixed Valeur associée au champ
+     */
     public function __get($field)
     {
         if (array_key_exists($field, $this->values)) {
@@ -58,6 +66,10 @@ class BaseEntity
         }
     }
 
+    /**
+     * @param $field Champ
+     * @param $value Valeur à associer au champ
+     */
     public function __set($field, $value)
     {
         if (array_key_exists($field, $this->values)) {
@@ -69,6 +81,11 @@ class BaseEntity
         }
     }
 
+    /**
+     * Associe la valeur au champ en prenant en compte le type défini dans la classe fille
+     * @param $field Champ
+     * @param $value Valeur à associer
+     */
     protected function setValue($field, $value)
     {
         switch ($this->fieldNames[$field]['type']) {
@@ -85,6 +102,10 @@ class BaseEntity
         }
     }
 
+    /**
+     * Execute le sql update
+     * @param string $fieldToUpdate Champ
+     */
     protected function update(string $fieldToUpdate)
     {
         if ($this->modified == true) {
