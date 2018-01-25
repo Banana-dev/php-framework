@@ -19,10 +19,10 @@ $template = new Template("chemin/de/la/vue");
 ```
 
 ###Dans la vue
-Pour récupérer les variables créées précedemment dans le controlleur, il éxiste 2 méthodes: 
+Pour récupérer les variables créées précedemment dans le controlleur, il existe 2 méthodes: 
 
 1. Pour écho la variable directement, on utilise les accolades `{{ foo }}`
-2. Ou récupérer la variable pour pouvoir itérer son contenu, si il s'agit d'un tableau.
+2. Ou récupérer la variable pour pouvoir itérer son contenu, s'il s'agit d'un tableau.
 ```php
 	foreach($foo as $f) {
 		echo $f;
