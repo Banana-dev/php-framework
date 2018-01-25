@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Model\Table\CountriesTable;
 use App\Model\Table\UsersTable;
 use Banana\Controller\BaseController;
 
@@ -18,15 +17,24 @@ class DbTestController extends BaseController
      */
     public function index()
     {
-        $Users = new UsersTable();
-        $Users->getByEmail("test@mail.com");
-        var_dump($Users->data);
+//        $Users = new UsersTable();
+//        $Users->getByEmail("test@mail.com");
+//        var_dump($Users->data);
+//
+//        $Users->getByEmailOrderBy('test@mail.com', 'email', 'ASC');
+//        var_dump($Users->data);
+//
+//        $Countries = new CountriesTable();
+//        $Countries->getByName('France');
+//        var_dump($Countries->data);
 
-        $Users->getByEmailOrderBy('test@mail.com', 'email', 'ASC');
-        var_dump($Users->data);
+//        $collectionsEntity = new BaseEntity('collections');
 
-        $Countries = new CountriesTable();
-        $Countries->getByName('France');
-        var_dump($Countries->data);
+        $users = new UsersTable();
+        $users->getAll();
+        echo '<pre>';
+//        var_dump($collectionsEntity->get());
+        var_export($users, false);
+        echo '</pre>';
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Model\ArticleModel;
+use App\Model\Table\ArticleTable;
 use Banana\Controller\BaseController;
 use Banana\Template\Template;
 
@@ -20,7 +20,7 @@ class TemplateTestController extends BaseController
     public function index()
     {
 
-        $article = new ArticleModel();
+        $article = new ArticleTable();
 
         $arr = [
             'pays' => 'france',
@@ -31,10 +31,10 @@ class TemplateTestController extends BaseController
             ]
         ];
 
-        $tpl = new Template('src/views/index.html');
+        $tpl = new Template('src/Views/TemplatePage/index.php');
         $tpl->set('sitename', 'Mon super site');
         $tpl->set('tableau', $arr);
         $tpl->set('ARTICLE', $article);
-        echo $tpl->output();
+        return $tpl->output();
     }
 }
