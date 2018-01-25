@@ -19,12 +19,14 @@ class BaseTable
      */
     protected $tableName = '';
 
-    protected $entityName = 'UserEntity';
+    /**
+     * @var string Nom de l'entité
+     */
+    protected $entityName = '';
 
     /**
      * @var array Données récupérées
      */
-//    public $data = [];
     public $entities = [];
 
     /**
@@ -84,11 +86,8 @@ class BaseTable
     protected function collectEntities($data)
     {
         foreach ($data as $row) {
-            $entityClass = 'App\Model\Entity\\' . $this->entityName;
+            $entityClass = 'App\Model\Entity\\' . $this->entityName. 'Entity';
             $this->entities[] = new $entityClass($row);
-//            echo '<pre>';
-//            var_dump($entities);
-//            echo '</pre>';
         }
     }
 }

@@ -15,5 +15,6 @@ class CountriesTable extends BaseTable
     function __construct()
     {
         $this->tableName = 'countries';
+        $this->entityName = 'country';
     }
 }
