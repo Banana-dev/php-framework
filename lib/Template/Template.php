@@ -2,6 +2,7 @@
 
 namespace Banana\Template;
 
+use Exception;
 
 class Template
 {
