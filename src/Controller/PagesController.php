@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Banana\Controller\BaseController;
+use Banana\Template\Template;
 
 /**
  * Class PagesController
@@ -17,5 +18,10 @@ class PagesController extends BaseController
     public function index()
     {
         return 'OK';
+    }
+
+    public function docTemplate(){
+    	$tpl = new Template('src/Views/docTemplate.php');
+    	return $tpl->output();
     }
 }

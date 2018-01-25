@@ -23,6 +23,7 @@
 		    <div class="navbar-nav">
 		      <a class="nav-item nav-link active" href="index.php">Accueil</a>
 		      <a class="nav-item nav-link" href="?controller=templateTest">TemplateTest</a>
+		      <a class="nav-item nav-link" href="?action=docTemplate">Doc Template</a>
 		    </div>
 		  </div>
 		</nav>
