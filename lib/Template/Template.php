@@ -2,7 +2,8 @@
 
 namespace Banana\Template;
 
-use Exception;
+use Banana\Exception\MissingTemplateException;
+use Banana\Utility\ExceptionHandler;
 
 class Template
 {
@@ -24,9 +25,16 @@ class Template
      */
     public function __construct($filename)
     {
-        if (!is_file($filename)) {
-            throw new Exception($filename . ' is not a valid file');
+        try {
+            if (!is_file($filename . 'f')) {
+                throw new MissingTemplateException($filename . ' is not a valid file');
+            }
+        } catch (\Exception $exception) {
+            new ExceptionHandler($exception);
         }
+
+        $this->loadCss();
+        $this->loadJs();
         $this->filepath = $filename;
     }
 
