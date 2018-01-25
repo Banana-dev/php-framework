@@ -28,6 +28,6 @@ class htmlHelper
             $paramString[] = $k . '=' . $v;
         }
 
-        return 'index.php?controller=' . $controller . '&action=' . $action . join('&', $paramString);
+        return 'index.php?controller=' . $controller . '&action=' . $action . '&' . join('&', $paramString);
     }
 }
