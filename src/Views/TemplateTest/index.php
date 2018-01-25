@@ -6,4 +6,4 @@
 <p>Qu'est ce que c'est que ça ? : {{obj.attr}}</p>
 <p>Je vis dans le département : <strong>{{tableau.departements.59}}</strong> et je parle {{tableau.langue}}</p>
 
-<input type="button" class='btn btn-primary' value='envoyer'>
+<input type="button" class='btn btn-danger' value='envoyer'>
