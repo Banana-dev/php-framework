@@ -166,4 +166,11 @@ class Router
             }
         }
     }
+
+    public static function redirect($controller, $action, $params = [])
+    {
+        $url = self::url($controller, $action, $params);
+
+        header('Location: ' . $url);
+    }
 }

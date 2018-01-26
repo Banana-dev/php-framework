@@ -6,7 +6,7 @@ class Session
 {
     protected static $instanciated = false;
 
-    private static function instance()
+    public static function initialize()
     {
         if (!self::$instanciated) {
             session_start();
@@ -16,7 +16,6 @@ class Session
 
     public static function get($path = null)
     {
-        self::instance();
         if ($path === null) {
             return $_SESSION;
         }
@@ -25,13 +24,11 @@ class Session
 
     public static function set($path, $value)
     {
-        self::instance();
         $_SESSION = Hash::set($_SESSION, $path, $value);
     }
 
     public static function remove($key)
     {
-        self::instance();
         if (isset($_SESSION[$key])) {
             unset($_SESSION[$key]);
         }
