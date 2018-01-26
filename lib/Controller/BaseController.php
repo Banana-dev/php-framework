@@ -3,7 +3,6 @@
 namespace Banana\Controller;
 
 use Banana\Utility\DB;
-
 /**
  * Class BaseController
  * Controleur de base
@@ -17,7 +16,7 @@ class BaseController
         // Traitement de la chaine
         $instruction = explode(' ', $sql);
 
-        switch ($instruction[0]) {
+        switch (strtoupper($instruction[0])) {
             case 'SELECT':
                 // Execution de la req
                 $sth = DB::$C->query($sql);
@@ -49,5 +48,12 @@ class BaseController
                 return null;
                 break;
         }
+    }
+
+    public function pre($s)
+    {
+        echo '<pre>';
+        var_dump($s);
+        echo '</pre>';
     }
 }

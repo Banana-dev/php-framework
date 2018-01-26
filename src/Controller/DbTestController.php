@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Model\Table\CountriesTable;
+use App\Model\Entity\countryEntity;
+use App\Model\Table\UsersTable;
 use Banana\Controller\BaseController;
 
 /**
@@ -30,23 +32,30 @@ class DbTestController extends BaseController
 //        echo '<pre>';
 //        var_export($countries, false);
 //        echo '</pre>';
+//
+//        // DELETE
+//        var_dump($countries->entities[0]->delete());
 
-        $sql = "SELECT * FROM users";
-        echo '<pre>';
-        var_dump($this->q($sql));
-        echo '</pre>';
+        $users = new UsersTable();
+        $users->getAll();
+        $this->pre($users);
+        echo $users->entities[0]->delete();
 
-        $sql ="INSERT INTO users (pseudo, email, password, created, country_id) 
-                          VALUES (:pseudo, :email, :password, :created, :country_id)";
-        $arg = [
-            'pseudo' => 'Jean',
-            'email' => 'jean@outlook.com',
-            'password' => 'password',
-            'created' => date('Y-m-d H:i:s'),
-            'country_id' => 4
-            ];
-        echo '<pre>';
-        var_dump($this->q($sql, $arg));
-        echo '</pre>';
+//        $sql = "SELECT * FROM users";
+//        $this->pre($this->q($sql));
+
+
+//        $sql ="insert into users (pseudo, email, password, created, country_id)
+//                          VALUES (:pseudo, :email, :password, :created, :country_id)";
+//        $arg = [
+//            'pseudo' => 'Jean',
+//            'email' => 'jean@outlook.com',
+//            'password' => 'password',
+//            'created' => date('Y-m-d H:i:s'),
+//            'country_id' => 4
+//            ];
+//        echo '<pre>';
+//        var_dump($this->q($sql, $arg));
+//        echo '</pre>';
     }
 }

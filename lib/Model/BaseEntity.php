@@ -9,7 +9,6 @@
 namespace Banana\Entity;
 
 use Banana\Utility\DB;
-use Banana\Utility\Hash;
 
 class BaseEntity
 {
@@ -115,5 +114,15 @@ class BaseEntity
             $sth = DB::$C->prepare("UPDATE $this->tableName SET $fieldToUpdate WHERE id = {$this->values['id']}");
             $sth->execute();
         }
+    }
+
+    /**
+     * Supprime l'entité
+     * @return int le nbre de lignes traitées ou false
+     */
+    public function delete()
+    {
+        $sth = DB::$C->prepare("DELETE FROM $this->tableName WHERE id = {$this->values['id']}");
+        return $sth->execute() ? $sth->rowCount() : false;
     }
 }
