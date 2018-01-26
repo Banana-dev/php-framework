@@ -1,0 +1,9 @@
+RewriteEngine On
+# Si la resource demandée existe, on continue.
+RewriteCond %{DOCUMENT_ROOT}/$1 -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/$1 -d
+RewriteRule (.*) - [S=2]
+
+# Sinon, on redirige vers index.
+RewriteRule ^$ index.php [L]
+RewriteRule (.*) index.php?r=$1 [QSA,L]

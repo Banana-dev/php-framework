@@ -89,15 +89,15 @@ class BaseEntity
     {
         switch ($this->fieldNames[$field]['type']) {
             case 'integer':
-                $this->values[$field] = (int) $value;
+                $this->values[$field] = (int)$value;
                 break;
 
             case 'string':
-                $this->values[$field] = (string) $value;
+                $this->values[$field] = (string)$value;
                 break;
 
             default:
-                $this->values[$field] = (string) $value;
+                $this->values[$field] = (string)$value;
         }
     }
 
@@ -109,7 +109,7 @@ class BaseEntity
     {
         if ($this->modified == true) {
 
-            $fieldToUpdate .= ' = ' . (gettype($this->values[$fieldToUpdate] ) == 'string' ? "'{$this->values[$fieldToUpdate]}'" : "{$this->values[$fieldToUpdate]}");
+            $fieldToUpdate .= ' = ' . (gettype($this->values[$fieldToUpdate]) == 'string' ? "'{$this->values[$fieldToUpdate]}'" : "{$this->values[$fieldToUpdate]}");
 
             $sth = DB::$C->prepare("UPDATE $this->tableName SET $fieldToUpdate WHERE id = {$this->values['id']}");
             $sth->execute();

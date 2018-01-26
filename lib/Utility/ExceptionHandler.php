@@ -3,41 +3,66 @@
 namespace Banana\Utility;
 
 use Banana\Template\Template;
-use Throwable;
+use Exception;
 
-class ExceptionHandler {
+class ExceptionHandler
+{
 
-	public function __construct($e) {
+    public function __construct(Exception $e)
+    {
 
-		$error_class = get_class($e);
+        $error_class = get_class($e);
 
 //		var_dump($error_class);
 
-		switch ($error_class){
-			case "PDOException":
+        switch ($error_class) {
+            case "PDOException":
 
-				$template = new Template("src/views/errors/PDO.php");
-				$template->set('title', $error_class);
-				$template->set('message', $e->getMessage());
-				echo $template->output();
+                $template = new Template("Errors/PDO");
+                echo $template->render(['title' => $error_class, 'message' => $e->getMessage()]);
 
-				break;
+                break;
 
-			case "Banana\Exception\NotFoundException":
+            case "Banana\Exception\NotFoundException":
 
-				$template = new Template("src/views/errors/404.php");
-				$template->set('title', '404 not found');
-				$template->set('message', $e->getMessage());
-				echo $template->output();
+                $template = new Template("Errors/404");
+                echo $template->render(['title' => '404 not found', 'message' => $e->getMessage()]);
 
-				break;
+                break;
 
-			case "Banana\Exception\MissingTemplateException":
+            case "Banana\Exception\MissingTemplateException":
 
-				echo "<div style='width: 100%;height: 100%;display: flex;'><div style='margin: auto;'><h1 style='color: red;font-size: 10em;'>FATAL ERROR</h1></div></div>";
+                $filename = 'Errors/404';
 
-				break;
-		}
-		die();
-	}
+                if (file_exists(__DIR__ . '/../../src/Views/' . $filename . '.php')) {
+
+                    $template = new Template($filename);
+                    echo $template->render(['title' => '404 not found', 'message' => $e->getMessage()]);
+
+                } else {
+                    echo "<div style='width: 100%;height: 100%;display: flex;'><div style='margin: auto;'><h1 style='color: red;font-size: 10em;'>FATAL ERROR</h1></div></div>";
+                    if (Config::get('debug')) {
+                        echo '<pre>';
+                        var_dump($e->getMessage());
+                        echo '</pre>';
+                        echo '<pre>';
+                        var_dump($e->getTraceAsString());
+                        echo '</pre>';
+                    }
+                }
+
+                break;
+            default:
+                echo "<div style='width: 100%;height: 100%;display: flex;'><div style='margin: auto;'><h1 style='color: blue;font-size: 10em;'>FATAL ERROR</h1></div></div>";
+                if (Config::get('debug')) {
+                    echo '<pre>';
+                    var_dump($e->getMessage());
+                    echo '</pre>';
+                    echo '<pre>';
+                    var_dump($e->getTraceAsString());
+                    echo '</pre>';
+                }
+        }
+        die();
+    }
 }

@@ -1,0 +1,4 @@
+<?php
+return [
+    '/(.*)' => \Banana\Utility\Router::genericRoute()
+];

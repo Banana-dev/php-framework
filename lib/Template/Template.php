@@ -15,6 +15,67 @@ class Template
     protected $content;
     /** @var array Variables assignées au template */
     protected $data = [];
+    /**
+     * @var string Fichier de layout
+     */
+    protected $layoutfile = __DIR__ . '/../../src/Views/Layout/default.php';
+
+    public function setLayout($file)
+    {
+        $filename = __DIR__ . '/../../src/Views/Layout/' . $file . '.php';
+        try {
+            if (!is_file($filename)) {
+                throw new MissingTemplateException($filename . ' is not a valid file');
+            }
+        } catch (\Exception $exception) {
+            new ExceptionHandler($exception);
+        }
+        $this->layoutfile = $filename;
+
+        return $this;
+    }
+
+    public function render($vars = [], $view = null)
+    {
+
+        $tpl = new Template($this->layoutfile, true);
+
+        $this->setVars($vars);
+
+        if ($view) {
+            $this->setView($view);
+        }
+
+
+        $title = null;
+        // Check for a page title
+        if (key_exists('title', $this->data)) {
+            $title = $this->data['title'];
+        }
+        $templateVars = $this->data;
+        $templateVars['_view'] = $this->output();
+
+        return $tpl->setVars($templateVars)->output();
+    }
+
+    public function setView($file, $absolute = false)
+    {
+        if (!$absolute) {
+            $filename = __DIR__ . '/../../src/Views/' . $file . '.php';
+        } else {
+            $filename = $file;
+        }
+
+        try {
+            if (!is_file($filename)) {
+                throw new MissingTemplateException($filename . ' is not a valid file');
+            }
+        } catch (\Exception $exception) {
+            new ExceptionHandler($exception);
+        }
+
+        $this->filepath = $filename;
+    }
 
     /**
      * Constructeur
@@ -23,19 +84,11 @@ class Template
      * @param string Chemin et nom du fichier template
      * @throws Exception Si le fichier n'existe pas
      */
-    public function __construct($filename)
+    public function __construct($filename = null, $absolute = false)
     {
-        try {
-            if (!is_file($filename . 'f')) {
-                throw new MissingTemplateException($filename . ' is not a valid file');
-            }
-        } catch (\Exception $exception) {
-            new ExceptionHandler($exception);
+        if ($filename) {
+            $this->setView($filename, $absolute);
         }
-
-        $this->loadCss();
-        $this->loadJs();
-        $this->filepath = $filename;
     }
 
     /**
@@ -48,6 +101,16 @@ class Template
     public function set($key, $value)
     {
         $this->data[$key] = $value;
+        return $this;
+    }
+
+    public function setVars($variables)
+    {
+        foreach ($variables as $k => $v) {
+            $this->set($k, $v);
+        }
+
+        return $this;
     }
 
     /**
@@ -59,7 +122,9 @@ class Template
     {
         // Enclenche la temporisation de sortie
         ob_start();
+//        var_dump($this->filepath);
 
+        extract($this->data);
         // On récupère le contenu du fichier
         $this->filecontent = $this->get_content($this->filepath);
 

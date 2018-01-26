@@ -1,6 +1,7 @@
 <?php
 
 namespace Banana\Utility;
+
 use Banana\Exception\NotFoundException;
 
 /**
@@ -25,18 +26,18 @@ final class Config
      */
     private static function instance()
     {
-    	try {
-		    if (!self::$instanciated) {
-			    $file = __DIR__ . '/../../config.php';
-			    if (!file_exists($file)) {
-				    throw new NotFoundException('Fichier config.php manquant.');
-			    } else {
-				    self::$config = require $file;
-			    }
-		    }
-	    } catch (\Exception $exception) {
-    		new ExceptionHandler($exception);
-	    }
+        try {
+            if (!self::$instanciated) {
+                $file = __DIR__ . '/../../config.php';
+                if (!file_exists($file)) {
+                    throw new NotFoundException('Fichier config.php manquant.');
+                } else {
+                    self::$config = require $file;
+                }
+            }
+        } catch (\Exception $exception) {
+            new ExceptionHandler($exception);
+        }
     }
 
     /**
@@ -45,13 +46,13 @@ final class Config
      * @return mixed|null
      * @throws \Exception
      */
-    public static function get($path = null)
+    public static function get($path = null, $default = null)
     {
         self::instance();
         if ($path === null) {
             return self::$config;
         }
-        return Hash::get(self::$config, $path);
+        return Hash::get(self::$config, $path, $default);
     }
 
     /**

@@ -10,17 +10,7 @@ class PagesController extends BaseController
 
     public function index()
     {
-        $arr = [
-            'pays' => 'france',
-            'langue' => 'français',
-            'departements' => [
-                '59' => 'Nord',
-                '60' => 'Oise'
-            ]
-        ];
-        $tpl = new Template('src/views/index.php');
-        $tpl->set('sitename', 'Mon super site');
-        $tpl->set('tableau', $arr);
-        echo $tpl->output();
+        $view = new template('Pages/index');
+        echo $view->render(['title' => 'Page title'], 'Pages/index');
     }
 }

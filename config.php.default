@@ -3,7 +3,9 @@
 return [
     // Configuration du site
     'site' => [
-        'name' => 'Mon site web'
+        'name' => 'Mon site web',
+        'defaultAction' => 'index',
+        'defaultController' => 'Pages'
     ],
     // Afficher les infos de debug ?
     'debug' => true,
