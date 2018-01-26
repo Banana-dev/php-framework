@@ -44,6 +44,7 @@ class Router
 
         $controller = $route['controller'];
         $action = $route['action'];
+        $params = $route['params'];
 
         // Chemin vers le fichier du controleur
         $controllerFile = 'src/Controller/' . ucfirst($controller) . 'Controller.php';
@@ -67,7 +68,7 @@ class Router
                 // Test de la présence de l'action
                 if (method_exists($page, $action)) {
                     // Execution de l'action
-                    $page->$action();
+                    call_user_func_array([$page, $action], $params);
 
                 } else {
                     // Erreur

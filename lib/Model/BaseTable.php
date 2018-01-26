@@ -43,6 +43,8 @@ class BaseTable
         // Split du name à toute les majuscules
         $arr = preg_split('/(?=[A-Z])/', $name, -1, PREG_SPLIT_NO_EMPTY);
 
+        $entityClassName = Str::entityName($this->entityName, true);
+
         switch (count($arr)) {
             case 1:
                 break;
@@ -52,7 +54,7 @@ class BaseTable
                 if ($arr[0] === 'get' && $arr[1] === 'All') {
                     $sth = DB::$C->prepare("SELECT * FROM $this->tableName");
                     $sth->execute();
-                    $data = $sth->fetchAll();
+                    $data = $sth->fetchAll(\PDO::FETCH_CLASS, $entityClassName);
                 }
                 break;
 
@@ -61,7 +63,7 @@ class BaseTable
                 if ($arr[0] === 'get' && $arr[1] === 'By') {
                     $sth = DB::$C->prepare("SELECT * FROM $this->tableName WHERE {$arr[2]} = '{$arguments[0]}'");
                     $sth->execute();
-                    $data = $sth->fetchAll();
+                    $data = $sth->fetchAll(\PDO::FETCH_CLASS, $entityClassName);
 
                 }
                 break;
@@ -75,14 +77,14 @@ class BaseTable
                                     WHERE {$arr[2]} = '{$arguments[0]}'
                                     ORDER BY {$arguments[1]} {$arguments[2]}");
                     $sth->execute();
-                    $data = $sth->fetchAll();
+                    $data = $sth->fetchAll(\PDO::FETCH_CLASS, $entityClassName);
                 }
                 break;
 
             default:
                 break;
         }
-        $this->collectEntities($data);
+        $this->entities = $data;
 
         return $this;
     }
@@ -102,14 +104,6 @@ class BaseTable
             return $this->entities[0];
         } else {
             throw new NotFoundException('Data not found');
-        }
-    }
-
-    protected function collectEntities($data)
-    {
-        $entityClass = Str::entityName($this->entityName, true);
-        foreach ($data as $row) {
-            $this->entities[] = new $entityClass($this->tableName, $row);
         }
     }
 
