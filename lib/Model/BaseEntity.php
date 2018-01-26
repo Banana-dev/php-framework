@@ -32,24 +32,24 @@ class BaseEntity
      */
     protected $modified;
 
+    protected $hasBeenSet = false;
+
     /**
      * BaseEntity constructor.
-     * @param $tableName Nom de la table
      * @param array $values Valeurs à associer
      */
-    public function __construct($tableName, $values = [])
+    public function __construct($values = [])
     {
-        $this->tableName = $tableName;
-
         // Association des valeurs aux champs
-        foreach ($this->fieldNames as $name => $type) {
-            if (!array_key_exists($name, $values)) {
+        foreach ($this->fieldNames as $name => $conf) {
+            if (!isset($this->values[$name])) {
                 $this->values[$name] = null;
-            } else {
-                $this->setValue($name, $values[$name]);
-//                $this->values[$field] = $values[$field];
             }
         }
+        if ($this->hasBeenSet) {
+            $this->modified = false;
+        }
+        $this->hasBeenSet = true;
     }
 
     /**
@@ -71,10 +71,11 @@ class BaseEntity
      */
     public function __set($field, $value)
     {
-        if (array_key_exists($field, $this->values)) {
+        $this->hasBeenSet = true;
+        if (array_key_exists($field, $this->fieldNames)) {
             $this->setValue($field, $value);
             $this->modified = true;
-            $this->update($field);
+            //$this->update($field);
         } else {
             // Throw exception here
         }

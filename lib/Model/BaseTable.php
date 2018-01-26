@@ -4,6 +4,7 @@ namespace Banana\Model;
 
 use Banana\Exception\NotFoundException;
 use Banana\Utility\DB;
+use Banana\Utility\Str;
 
 /**
  * Class BaseTable
@@ -106,9 +107,8 @@ class BaseTable
 
     protected function collectEntities($data)
     {
-        $entityClass = 'App\Model\Entity\\' . $this->entityName . 'Entity';
+        $entityClass = Str::entityName($this->entityName, true);
         foreach ($data as $row) {
-            $entityClass = 'App\Model\Entity\\' . $this->entityName . 'Entity';
             $this->entities[] = new $entityClass($this->tableName, $row);
         }
     }
@@ -118,17 +118,18 @@ class BaseTable
         return $this->tableName;
     }
 
-    public function q(string $sql, array $values = null, string $className = null)
+    public function q(string $sql, array $values = null)
     {
         // Traitement de la chaine
         $instruction = explode(' ', $sql);
+        $entityClassName = Str::entityName($this->entityName, true);
 
         switch (strtoupper($instruction[0])) {
             case 'SELECT':
                 // Execution de la req
                 $sth = DB::$C->prepare($sql);
                 $sth->execute($values);
-                return $sth->fetchAll(\PDO::FETCH_CLASS, $className);
+                return $sth->fetchAll(\PDO::FETCH_CLASS, $entityClassName);
                 break;
 
             case 'INSERT':
