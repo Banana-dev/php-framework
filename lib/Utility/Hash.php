@@ -20,17 +20,18 @@ abstract class Hash
      *
      * @param array $array Array in wich to search
      * @param string $path Path like 'some.key.to.get'
+     * @param mixed $default Valeur par défaut si la clé n'a pas été trouvée
      *
      * @return mixed|null Returns null if key does not exists
      */
-    public static function get(array $array, string $path)
+    public static function get(array $array, string $path, $default = null)
     {
         $pathHash = explode('.', $path);
         foreach ($pathHash as $chunk) {
             if (isset($array[$chunk])) {
                 $array = $array[$chunk];
             } else {
-                return null;
+                return $default;
             }
         }
         return $array;
