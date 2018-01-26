@@ -36,13 +36,18 @@ class DbTestController extends BaseController
 //        // DELETE
 //        var_dump($countries->entities[0]->delete());
 
-        $users = new UsersTable();
-        $users->getAll();
-        $this->pre($users);
-        echo $users->entities[0]->delete();
+//        $users = new UsersTable();
+//        $users->getAll();
+//        $this->pre($users);
 
 //        $sql = "SELECT * FROM users";
 //        $this->pre($this->q($sql));
+
+        $sql = "SELECT * FROM users WHERE password = :password";
+        $args = ['password' => 'password'];
+
+        $Users = new UsersTable();
+        $this->pre($Users->q($sql, $args, 'User'));
 
 
 //        $sql ="insert into users (pseudo, email, password, created, country_id)
