@@ -36,6 +36,7 @@ class BaseTable
      *
      * @param string $name Nom du getter
      * @param array $arguments Arguments passés
+     * @return object $this
      */
     public function __call(string $name, array $arguments)
     {
@@ -87,6 +88,10 @@ class BaseTable
         return $this;
     }
 
+    /**
+     * Return la première entité
+     * @return mixed|null la première entité
+     */
     public function first()
     {
         if (count($this->entities) > 0) {
@@ -96,6 +101,11 @@ class BaseTable
         }
     }
 
+    /**
+     * Return la première entité ou renvoie
+     * @return mixed
+     * @throws NotFoundException
+     */
     public function firstOrFail()
     {
         if (count($this->entities) > 0) {
@@ -105,7 +115,11 @@ class BaseTable
         }
     }
 
-    protected function collectEntities($data)
+    /**
+     * Déclare les entités
+     * @param array $data
+     */
+    protected function collectEntities(array $data)
     {
         $entityClass = Str::entityName($this->entityName, true);
         foreach ($data as $row) {
@@ -113,11 +127,26 @@ class BaseTable
         }
     }
 
+    /**
+     * Renvoie le le nom de la table
+     * @return string
+     */
     public function getTableName()
     {
         return $this->tableName;
     }
 
+    /**
+     * Execute une requête SQL
+     *
+     * SELECT -> Crée et retourne les entités
+     * UPDATE -> Retourne le nombre de lignes traitées
+     * INSERT -> Retourne le dernier id inséré
+     * DELETE -> Retourn le nombre de lignes traitées
+     * @param string $sql
+     * @param array|null $values
+     * @return array|int|null|string
+     */
     public function q(string $sql, array $values = null)
     {
         // Traitement de la chaine
