@@ -2,6 +2,8 @@
 
 namespace Banana\Controller;
 
+use Banana\Utility\DB;
+
 /**
  * Class BaseController
  * Controleur de base
@@ -10,5 +12,42 @@ namespace Banana\Controller;
  */
 class BaseController
 {
-    
+    public function q (string $sql, array $values = null)
+    {
+        // Traitement de la chaine
+        $instruction = explode(' ', $sql);
+
+        switch ($instruction[0]) {
+            case 'SELECT':
+                // Execution de la req
+                $sth = DB::$C->query($sql);
+                return $sth->fetchAll(\PDO::FETCH_CLASS);
+                break;
+
+            case 'INSERT':
+                // Execution de la req
+                $sth = DB::$C->prepare($sql);
+                $sth->execute($values);
+                return DB::$C->lastInsertId();
+                break;
+
+            case 'UPDATE':
+                // Execution de la req
+                $sth = DB::$C->prepare($sql);
+                $sth->execute($values);
+                return $sth->rowCount();
+                break;
+
+            case 'DELETE':
+                // Execution de la req
+                $sth = DB::$C->prepare($sql);
+                $sth->execute($values);
+                return $sth->rowCount();
+                break;
+
+            default:
+                return null;
+                break;
+        }
+    }
 }

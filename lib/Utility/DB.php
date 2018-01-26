@@ -24,18 +24,18 @@ class DB
      */
     public static function initialize()
     {
-//        if (!self::$instanciated) {
-//            $conf = Config::get('db');
-//
-//            try {
-//                self::$C = new PDO("mysql:host={$conf['host']};dbname={$conf['db']};charset=utf8",
-//                    "{$conf['username']}",
-//                    "{$conf['password']}");
-//                self::$instanciated = true;
-//            } catch (PDOException $e) {
-//                new ExceptionHandler($e);
-//            }
-//        }
+        if (!self::$instanciated) {
+            $conf = Config::get('db');
+
+            try {
+                self::$C = new PDO("mysql:host={$conf['host']};dbname={$conf['db']};charset=utf8",
+                    "{$conf['username']}",
+                    "{$conf['password']}");
+                self::$instanciated = true;
+            } catch (PDOException $e) {
+                new ExceptionHandler($e);
+            }
+        }
 
         return self::$instanciated;
     }
