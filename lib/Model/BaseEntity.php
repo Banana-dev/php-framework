@@ -29,7 +29,7 @@ class BaseEntity
 //        $this->fieldNames = $sth->fetchAll(\PDO::FETCH_COLUMN);
 
         // Association des valeurs aux champs
-        foreach ($this->fieldNames as $field) {
+        foreach ($this->fieldNames as $field=>$config) {
             if (!array_key_exists($field, $values)) {
                 $this->values[$field] = '';
             } else {

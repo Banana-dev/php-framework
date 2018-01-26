@@ -18,21 +18,21 @@ class ExceptionHandler
         switch ($error_class) {
             case "PDOException":
 
-                $template = new Template("errors/PDO");
+                $template = new Template("Errors/PDO");
                 echo $template->render(['title' => $error_class, 'message' => $e->getMessage()]);
 
                 break;
 
             case "Banana\Exception\NotFoundException":
 
-                $template = new Template("errors/404");
+                $template = new Template("Errors/404");
                 echo $template->render(['title' => '404 not found', 'message' => $e->getMessage()]);
 
                 break;
 
             case "Banana\Exception\MissingTemplateException":
 
-                $filename = 'errors/404';
+                $filename = 'Errors/404';
 
                 if (file_exists(__DIR__ . '/../../src/Views/' . $filename . '.php')) {
 
