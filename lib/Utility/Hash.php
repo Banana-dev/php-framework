@@ -44,14 +44,13 @@ abstract class Hash
      * @param string $path Path like 'some.key.to.set'
      * @param mixed $value Value to set
      * @param bool $overwrite Flag to averwrite existing content or to append new values instead
-     *                          values instead
      *
      * @return array The new array
      */
     public static function set(array $array, string $path, $value, bool $overwrite = true)
     {
-        $cheminHash = explode('.', $path);
-        $newPath = self::createPath($cheminHash, $value);
+        $pathHash = explode('.', $path);
+        $newPath = self::createPath($pathHash, $value);
         if ($overwrite) {
             return array_merge($array, $newPath);
         } else {

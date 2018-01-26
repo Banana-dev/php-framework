@@ -28,6 +28,14 @@ class Session
         self::instance();
         $_SESSION = Hash::set($_SESSION, $path, $value);
     }
+
+    public static function remove($key)
+    {
+        self::instance();
+        if (isset($_SESSION[$key])) {
+            unset($_SESSION[$key]);
+        }
+    }
 }
 
 ?>
